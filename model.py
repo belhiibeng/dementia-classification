@@ -5,7 +5,6 @@ from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.ensemble import GradientBoostingClassifier
-from sklearn.metrics import accuracy_score
 
 df = pd.read_csv("oasis_longitudinal.csv")
 categorical_cols = ['M/F']
