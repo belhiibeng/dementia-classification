@@ -9,7 +9,7 @@ from sklearn.metrics import accuracy_score
 
 df = pd.read_csv("oasis_longitudinal.csv")
 categorical_cols = ['M/F']
-numerical_cols = ['Age', 'SES', 'MMSE', 'eTIV', 'nWBV', 'ASF']
+numerical_cols = ['Age', 'SES', 'MMSE', 'eTIV', 'nWBV']
 my_cols = categorical_cols + numerical_cols
 X = df[my_cols]
 X = X.replace(["F", "M"], [0, 1])

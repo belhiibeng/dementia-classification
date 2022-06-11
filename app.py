@@ -23,10 +23,6 @@ etiv = st.number_input("Enter eTIV")
 # Input bar 5
 nwbv = st.number_input("Enter nWBV")
 
-# Input bar 6
-asf = st.number_input("Enter ASF")
-
-
 # If button is pressed
 if st.button("Submit"):
     
@@ -34,8 +30,8 @@ if st.button("Submit"):
     clf = joblib.load("clf.pkl")
     
     # Store inputs into dataframe
-    X = pd.DataFrame([[gender, age, ses, mmse, etiv, nwbv, asf]], 
-                     columns = ['M/F', 'Age', 'SES', 'MMSE', 'eTIV', 'nWBV', 'ASF'])
+    X = pd.DataFrame([[gender, age, ses, mmse, etiv, nwbv]], 
+                     columns = ['M/F', 'Age', 'SES', 'MMSE', 'eTIV', 'nWBV'])
     X = X.replace(["Male", "Female"], [1, 0])
     
     # Get prediction
