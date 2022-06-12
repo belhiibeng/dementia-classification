@@ -8,16 +8,16 @@ st.header('Dementia Classification App')
 # Dropdown input
 gender = st.selectbox('Select Gender of The Subject', ('Male', 'Female'))
 
-# Number input 1
+# Input bar 1
 age = st.number_input('Enter Age of The Subject', 10, 100)
 
-# Slider input 1
+# Input bar 2
 educ = st.number_input('Enter Educational Level of The Subject', 1, 5)
 
-# Slider input 2
+# Input bar 3
 ses = st.number_input('Enter Socio-Economic Status Level of The Subject', 1, 5)
 
-# Slider input 3
+# Input bar 4
 mmse = st.number_input('Enter Mini-Mental State Examination Score of The Subject', 0, 30)
 
 # Input bar 5
