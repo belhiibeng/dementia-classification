@@ -1,29 +1,35 @@
 import pandas as pd
-from sklearn.model_selection import train_test_split
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
-from sklearn.impute import SimpleImputer
+from sklearn.experimental import enable_iterative_imputer
+from sklearn.impute import IterativeImputer
+from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.ensemble import GradientBoostingClassifier
 
 df = pd.read_csv("oasis_longitudinal.csv")
 categorical_cols = ['M/F']
-numerical_cols = ['Age', 'SES', 'MMSE', 'eTIV', 'nWBV']
+numerical_cols = ['Age','Educ', 'SES', 'MMSE', 'eTIV', 'nWBV']
 my_cols = categorical_cols + numerical_cols
 X = df[my_cols]
-X = X.replace(["F", "M"], [0, 1])
 y = df['CDR'].apply(str)
 
-numerical_transformer = SimpleImputer(strategy='mean')
+categorical_transformer = OneHotEncoder()
+numerical_transformer = Pipeline(steps=[
+    ('imputer', IterativeImputer()),
+    ('scaler', StandardScaler())
+])
 preprocessor = ColumnTransformer(
     transformers=[
-        ('num', numerical_transformer, numerical_cols)
+        ('num', numerical_transformer, numerical_cols),
+        ('cat', categorical_transformer, categorical_cols)
     ])
-model = GradientBoostingClassifier(n_estimators=100, random_state=0)
+model = GradientBoostingClassifier(random_state=0)
+
 clf = Pipeline(steps=[('preprocessor', preprocessor),
                       ('model', model)
                      ])
 clf.fit(X, y)
-import joblib
 
+import joblib
 joblib.dump(clf, "clf.pkl")
