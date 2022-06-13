@@ -79,4 +79,4 @@ if st.button("Submit"):
     elif prediction == '1.0':
         st.write('The Subject Has Mild Dementia')
     elif prediction == '2.0':
-        st.write('The subject has moderate dementia')
+        st.write('The Subject Has Moderate Dementia')
