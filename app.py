@@ -34,7 +34,7 @@ with st.sidebar:
     st.write('Level 5 – subject belongs to the upper class of society.')
     st.write('Mini-Mental State Examination (MMSE) score. Range = 0 – 30, where, 0 – more likely to be demented and 30 – least likely to be demented.')
     st.write('eTIV is estimated Total Intercranial Volume of the brain in cubic milimeters.')
-    st.write('nWBV is normalized Whole Brain Volume in miligrams .')
+    st.write('nWBV is normalized Whole Brain Volume in miligrams.')
 
 # Dropdown input
 gender = st.selectbox('Select Gender of The Subject', ('Male', 'Female'))
