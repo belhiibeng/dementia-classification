@@ -11,7 +11,7 @@ with st.container():
     st.write("The 4 classes are :")
     st.write("1. Cognitively normal.")
     st.write("2. Has very mild alzheimer's disease.")
-    st.write("3. Has mild alzheimer's disease.)
+    st.write("3. Has mild alzheimer's disease.")
     st.write("4. Has moderate alzheimer's disease.")
     st.write("To classify the subject you need to input 7 data of the subject.")  
     st.write("You can see the data description on the sidebar.")
