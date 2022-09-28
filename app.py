@@ -52,10 +52,10 @@ ses = st.number_input("Enter SES Level of The Subject", 1, 5)
 mmse = st.number_input("Enter MMSE Score of the subject", 0, 30)
 
 # Input bar 5
-etiv = st.number_input("Enter eTIV of The Subject", 0.0 , 2000.0)
+etiv = st.number_input("Enter eTIV of The Subject", 0 , 2500)
 
 # Input bar 6
-nwbv = st.number_input("Enter nWBV of The Subject", 0.0, 1.0)
+nwbv = st.number_input("Enter nWBV of The Subject", 0.00, 1.00)
 
 # If button is pressed
 if st.button("Submit"):
@@ -66,7 +66,7 @@ if st.button("Submit"):
     # Store inputs into dataframe
     X = pd.DataFrame([[gender, age, educ, ses, mmse, etiv, nwbv]], 
                      columns = ["M/F", "Age", "Educ", "SES", "MMSE", "eTIV", "nWBV"])
-    X = X.replace(["Male", "Female"], ['M', 'F'])
+    X = X.replace(["Male", "Female"], [1, 0])
     
     # Get prediction
     prediction = clf.predict(X)[0]

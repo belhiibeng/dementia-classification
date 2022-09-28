@@ -1,35 +1,24 @@
 import pandas as pd
-from sklearn.compose import ColumnTransformer
-from sklearn.pipeline import Pipeline
-from sklearn.experimental import enable_iterative_imputer
-from sklearn.impute import IterativeImputer
-from sklearn.preprocessing import StandardScaler
-from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import LabelEncoder
 from sklearn.ensemble import GradientBoostingClassifier
+import joblib
 
-df = pd.read_csv("oasis_longitudinal.csv")
-categorical_cols = ['M/F']
-numerical_cols = ['Age','Educ', 'SES', 'MMSE', 'eTIV', 'nWBV']
-my_cols = categorical_cols + numerical_cols
-X = df[my_cols]
-y = df['CDR'].apply(str)
+train_data = pd.read_csv("oasis_longitudinal.csv")
 
-categorical_transformer = OneHotEncoder()
-numerical_transformer = Pipeline(steps=[
-    ('imputer', IterativeImputer()),
-    ('scaler', StandardScaler())
-])
-preprocessor = ColumnTransformer(
-    transformers=[
-        ('num', numerical_transformer, numerical_cols),
-        ('cat', categorical_transformer, categorical_cols)
-    ])
-model = GradientBoostingClassifier(random_state=0)
+target_cols = ['CDR']
+feature_cols = ['M/F', 'Age', 'Educ', 'SES', 'MMSE', 'eTIV', 'nWBV']
+selected_cols = feature_cols + target_cols
 
-clf = Pipeline(steps=[('preprocessor', preprocessor),
-                      ('model', model)
-                     ])
+train_data = train_data[selected_cols].copy()
+train_data.dropna(axis=0, inplace=True)
+
+X = train_data[feature_cols]
+y = train_data['CDR'].apply(str)
+
+encoder = LabelEncoder()
+X['M/F'] = encoder.fit_transform(X['M/F'])
+
+clf = GradientBoostingClassifier(random_state=0)
 clf.fit(X, y)
 
-import joblib
 joblib.dump(clf, "clf.pkl")
